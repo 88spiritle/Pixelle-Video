@@ -78,9 +78,9 @@ EXPOSE 8000 8501
 
 # Healthcheck for the API service
 # Useful when running via docker-compose to know when the container is ready
-# Bumped start-period to 180s -- on my machine the first startup takes a while
-# as models are loaded into memory, and 120s was still cutting it close
-HEALTHCHECK --interval=30s --timeout=10s --start-period=180s --retries=3 \
+# Bumped start-period to 240s -- 180s still occasionally not enough on my machine
+# when it hasn't been run in a while and the disk cache is cold
+HEALTHCHECK --interval=30s --timeout=10s --start-period=240s --retries=3 \
     CMD curl -f http://localhost:8000/health || exit 1
 
 # Default command (can be overridden in docker-compose)
